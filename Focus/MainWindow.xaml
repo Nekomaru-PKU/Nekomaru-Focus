@@ -6,14 +6,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
     xmlns:local="clr-namespace:Focus"
+    mc:Ignorable="d"
+    DataContext="{x:Static local:App.MainViewModel}"
     Style="{StaticResource UiWindow}"
+    Width="400" Height="600" ResizeMode="CanMinimize"
+    WindowStartupLocation="CenterScreen"
     Icon="{StaticResource AppIconFilled}"
     Title="Focus"
-    ResizeMode="CanMinimize"
-    WindowStartupLocation="CenterScreen"
-    Width="400" Height="600"
-    DataContext="{x:Static local:App.MainViewModel}"
-    mc:Ignorable="d">
+    FontSize="14">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -30,12 +30,10 @@
                 Mode=TwoWay,
                 UpdateSourceTrigger=PropertyChanged}"/>
             <ui:Button
-                Grid.Column="1" Margin="9, 0, 0, 0" Padding="6"
-                Appearance="Transparent" FontSize="18"
-                Width="32"
-                Height="32"
-                Icon="ArrowCounterclockwise24"
-                Command="{Binding RefreshCommand}">
+                Command="{Binding RefreshCommand}"
+                Icon="ArrowCounterclockwise24" Appearance="Transparent"
+                Width="32" Height="32" FontSize="18" Padding="6"
+                Grid.Column="1" Margin="9, 0, 0, 0">
            </ui:Button>
         </Grid>
         <ListBox
@@ -49,10 +47,10 @@
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                 <Border
                                     x:Name="Border"
-                                    Margin="0,0,0,4"
-                                    Padding="4"
                                     BorderThickness="1"
-                                    CornerRadius="4">
+                                    CornerRadius="4"
+                                    Margin="0,0,0,4"
+                                    Padding="4">
                                     <ContentPresenter />
                                 </Border>
                             </ControlTemplate>
@@ -61,46 +59,38 @@
                 </Style>
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type local:RunningWindowViewModel}">
+                <DataTemplate DataType="{x:Type local:UserWindowViewModel}">
                     <Grid Width="400">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
+                            <ColumnDefinition Width="90"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock
-                            Text="{Binding Model.Name}"
-                            FontSize="14"
-                            Margin="0,0,0,4"
+                            Text="{Binding Name}"
+                            TextTrimming="CharacterEllipsis"
                             VerticalAlignment="Center"/>
-                        <Grid Grid.Column="1" Margin="0,0,4,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <ui:Button
-                                Appearance="Secondary"
-                                Content="1920 x 1080"
-                                Padding="12,4,8,4"
-                                Height="30"
-                                BorderThickness="1,1,0,1"/>
-                            <ui:Button
-                                Appearance="Secondary"
-                                Icon="CaretDown24"
-                                Padding="2"
-                                Height="30"
-                                BorderThickness="0,1,1,1"
-                                Grid.Column="1"
-                                Click="OnWindowResolutionDropdownClicked"/>
-                        </Grid>
+                        <TextBlock
+                            Grid.Column="1"
+                            TextAlignment="Center"
+                            VerticalAlignment="Center">
+                            <Run Text="{Binding Rect.Width}"/>
+                            <Run Text="×"/>
+                            <Run Text="{Binding Rect.Height}"/>
+                        </TextBlock>
+                        <ui:Button
+                            Click="OnWindowResolutionDropdownClicked"
+                            Icon="ResizeLarge24"
+                            Appearance="Secondary"
+                            Width="30" Height="30" FontSize="18" Padding="4"
+                            Grid.Column="2" Margin="9,0"/>
                         <ui:Button
                             Command="{Binding CenterCommand}"
-                            Appearance="Secondary"
                             Icon="AlignCenterVertical24"
-                            FontSize="18"
-                            Width="30"
-                            Height="30"
-                            Grid.Column="2" Padding="4"/>
+                            Appearance="Secondary"
+                            Width="30" Height="30" FontSize="18" Padding="4"
+                            Grid.Column="3"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
