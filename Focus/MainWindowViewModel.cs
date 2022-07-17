@@ -36,7 +36,7 @@ public class MainWindowViewModel: DependencyObject {
         RefreshCommand = new RelayCommand(ExecuteRefresh);
     }
 
-    private void ExecuteRefresh() {
+    public void ExecuteRefresh() {
         var acceptMinWidth = WindowResolution.Presets.Select(o => o.Width).Min();
         var windows = NativeExtentions.EnumerateWindows()
             .Where (hWnd => IsWindowVisible(hWnd))

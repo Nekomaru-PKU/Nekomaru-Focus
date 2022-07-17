@@ -6,6 +6,7 @@ namespace Focus;
 public partial class MainWindow: Window {
     public MainWindow() {
         InitializeComponent();
+        Activated += (_, _) => App.MainViewModel.ExecuteRefresh();
     }
 
     private void OnWindowResolutionDropdownClicked(object sender, RoutedEventArgs e) {
