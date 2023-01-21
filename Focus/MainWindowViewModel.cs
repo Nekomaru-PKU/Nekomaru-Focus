@@ -4,7 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using WPFUI.Common;
+using Wpf.Ui.Common;
+using Wpf.Ui.Controls;
 using static PInvoke.User32;
 
 namespace Focus;
@@ -46,9 +47,7 @@ public class MainWindowViewModel: DependencyObject {
                 data.Rect.Height < SystemInfo.DisplaySize.Height)
             .Select(data => new UserWindowViewModel(data));
         Windows.Clear();
-        foreach (var window in windows) {
-            Windows.Add(window);
-        }
+        Windows.AddRange(windows);
         UpdateWindowsFiltered();
     }
 

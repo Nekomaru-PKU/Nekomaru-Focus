@@ -14,15 +14,18 @@ internal record WindowResolution(
     public static readonly IEnumerable<WindowResolution> Presets =
         new WindowResolution[] {
             new(16, 10, 1920, 1200),
+            new(16, 10, 1600, 1000),
             new(16, 10, 1440,  900),
             new(16, 10, 1280,  800),
 
             new(16,  9, 1920, 1080),
             new(16,  9, 1600,  900),
+            new(16,  9, 1440,  810),
             new(16,  9, 1280,  720),
-            new(16,  9,  640,  360),
-
-            new( 4,  3, 1024,  768),
-            new( 4,  3,  800,  600),
+            
+            new( 4,  3, 1920,  1440),
+            new( 4,  3, 1600,  1200),
+            new( 4,  3, 1440,  1080),
+            new( 4,  3, 1280,  960),
         };
 }

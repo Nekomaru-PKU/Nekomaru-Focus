@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using WPFUI.Common;
+using Wpf.Ui.Common;
 
 namespace Focus;
 using static Focus.NativeExtentions;
