@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using Wpf.Ui.Common;
-using Wpf.Ui.Controls;
-using static PInvoke.User32;
 
 namespace Focus;
 
@@ -17,30 +12,27 @@ public class MainWindowViewModel: DependencyObject {
         DependencyProperty.Register(
             nameof(WindowsFilter),
             typeof(string),
-            typeof(MainWindowViewModel),
-            new PropertyMetadata(string.Empty, OnWindowsFilterChanged));
+            typeof(MainWindow),
+            new PropertyMetadata(
+                string.Empty,
+                (d, _) => ((MainWindowViewModel)d).UpdateWindowsFiltered()));
     public string WindowsFilter {
         get => (string)GetValue(WindowsFilterProperty);
         set => SetValue(WindowsFilterProperty, value);
     }
-    private static void OnWindowsFilterChanged(
-        DependencyObject d,
-        DependencyPropertyChangedEventArgs e) {
-        ((MainWindowViewModel)d).UpdateWindowsFiltered();
-    }
 
-    public ObservableCollection<UserWindowViewModel> WindowsFiltered { get; private set; } = new();
+    public ObservableCollection<NativeWindowViewModel> WindowsFiltered { get; private set; } = new();
 
-    private List<UserWindowViewModel> Windows { get; } = new();
+    private List<NativeWindowViewModel> Windows { get; } = new();
 
     public MainWindowViewModel() {
         RefreshCommand = new RelayCommand(ExecuteRefresh);
     }
 
     public void ExecuteRefresh() {
-        var windows = UserWindowEnumerator.EnumerateUserWindows();
+        var windows = NativeWindowMethods.EnumerateForegroundWindows();
         Windows.Clear();
-        Windows.AddRange(from window in windows select new UserWindowViewModel(window));
+        Windows.AddRange(from window in windows select new NativeWindowViewModel(window));
         UpdateWindowsFiltered();
     }
 

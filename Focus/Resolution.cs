@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace Focus;
 
-namespace Focus;
-
-internal record WindowResolution(
+internal record Resolution(
     int AspectRatioX,
     int AspectRatioY,
     int Width,
@@ -11,17 +9,17 @@ internal record WindowResolution(
         "{0} x {1} ({2}:{3})",
         Width, Height, AspectRatioX, AspectRatioY);
 
-    public static readonly IEnumerable<WindowResolution> Presets =
-        new WindowResolution[] {
-            new(16, 10, 1920, 1200),
-            new(16, 10, 1600, 1000),
-            new(16, 10, 1440,  900),
-            new(16, 10, 1280,  800),
-
+    public static readonly IEnumerable<Resolution> Presets =
+        new Resolution[] {
             new(16,  9, 1920, 1080),
             new(16,  9, 1600,  900),
             new(16,  9, 1440,  810),
             new(16,  9, 1280,  720),
+
+            new(16, 10, 1920, 1200),
+            new(16, 10, 1600, 1000),
+            new(16, 10, 1440,  900),
+            new(16, 10, 1280,  800),
             
             new( 4,  3, 1920,  1440),
             new( 4,  3, 1600,  1200),
