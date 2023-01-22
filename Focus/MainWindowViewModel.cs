@@ -38,16 +38,9 @@ public class MainWindowViewModel: DependencyObject {
     }
 
     public void ExecuteRefresh() {
-        var acceptMinWidth = WindowResolution.Presets.Select(o => o.Width).Min();
-        var windows = NativeExtentions.EnumerateWindows()
-            .Where (hWnd => IsWindowVisible(hWnd))
-            .Select(hWnd => UserWindowDataProvider.FromHandle(hWnd))
-            .Where (data => data.Name != string.Empty &&
-                data.Rect.Width >= acceptMinWidth &&
-                data.Rect.Height < SystemInfo.DisplaySize.Height)
-            .Select(data => new UserWindowViewModel(data));
+        var windows = UserWindowEnumerator.EnumerateUserWindows();
         Windows.Clear();
-        Windows.AddRange(windows);
+        Windows.AddRange(from window in windows select new UserWindowViewModel(window));
         UpdateWindowsFiltered();
     }
 
